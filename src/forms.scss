@@ -1,0 +1,31 @@
+﻿input, .input{
+    padding: 0px 10px;
+    background-color: lighten($main, 60%);
+    width: 100%;
+    border: 1px solid darken($main, 40%);
+}
+
+.error {
+    text-align: center;
+    color: $danger;
+}
+
+.user-info tr td {
+    border: 1px solid darken($main, 40%);
+}
+
+.user-info tr td input {
+    border: none;
+    padding-bottom: 0.5rem;
+    padding-top: 0.5rem;
+}
+
+.user-info tr td:nth-child(2n+1) {
+    font-weight: bold;
+    padding-bottom: 0.5rem;
+    padding-top: 0.5rem;
+}
+
+.user-info tr td:nth-child(2n) {
+    padding: 0;
+}

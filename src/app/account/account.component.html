@@ -1,0 +1,70 @@
+
+<div class="row justify-content-center mt-3" ng-app="app" ng-controller="AuthCtrl">
+  <div class="col-md-8 col-12">
+
+      <ul class="nav row justify-content-center text-center font-weight-bold mb-2">
+          <li class="nav-item mx-1">
+              <a class="nav-link text-main px-md-5 px-3 active" id="signIn" href="#_SignIn" data-toggle="tab">Sign in</a>
+          </li>
+          <li class="nav-item mx-1">
+              <a class="nav-link text-main px-md-5 px-3" id="signUp" href="#_SignUp" data-toggle="tab">Sign up</a>
+          </li>
+      </ul>
+      <div class="tab-content">
+          <div id="_SignUp" class="tab-pane" role="tabpanel">
+              <h4 class="text-center mb-3">New user</h4>
+              <div class="row my-2 justify-content-around">
+                  <div class="error col-12"></div>
+              </div>
+              <div class="row my-2 justify-content-around">
+                  <div class="col-md-2 text-center">Email</div>
+                  <div class="col-md-9">
+                      <input type="text" ng-model="new.signUp.Email"/>
+                  </div>
+                  <div class="error col-12"></div>
+              </div>
+              <div class="row my-2 justify-content-around">
+                  <div class="col-md-2 text-center">Password</div>
+                  <div class="col-md-9">
+                      <input type="text" ng-model="new.signUp.Password"/>
+                  </div>
+                  <div class="error col-12"></div>
+              </div>
+              <div class="row my-2 justify-content-around">
+                  <div class="col-md-2 text-center">Confirm</div>
+                  <div class="col-md-9">
+                      <input type="text" ng-model="new.signUp.Confirm"/>
+                  </div>
+                  <div class="error col-12"></div>
+              </div>
+              <div class="row justify-content-center">
+                  <button type="submit" class="col-md-3 col-6 btn btn-main py-2 mt-3" ng-click="signUp()">Sign up</button>
+              </div>
+          </div>
+          <div id="_SignIn" class="tab-pane active" role="tabpanel">
+              <h4 class="text-center mb-3">Registered user</h4>
+              <div class="row my-2 justify-content-around">
+                  <div class="error col-12"></div>
+              </div>
+
+              <div class="row my-2 justify-content-around">
+                  <div class="col-md-2 text-center">Email</div>
+                  <div class="col-md-9">
+                      <input type="text" ng-model="new.signIn.Email" />
+                  </div>
+                  <div class="error col-12"></div>
+              </div>
+              <div class="row my-2 justify-content-around">
+                  <div class="col-md-2 text-center">Password</div>
+                  <div class="col-md-9">
+                      <input type="password" ng-model="new.signIn.Password" />
+                  </div>
+                  <div class="error col-12"></div>
+              </div>
+              <div class="row justify-content-center">
+                  <button type="submit" class="col-md-3 col-6 btn btn-main py-2 mt-3" ng-click="signIn()">Sign in</button>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>

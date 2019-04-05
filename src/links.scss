@@ -1,0 +1,15 @@
+﻿.nav-link, .nav-link:active {
+    color: darken($main, 60%) !important;
+}
+
+.nav-link:hover {
+    color: darken($main, 40%) !important;
+}
+
+a.active {
+    border-bottom: solid 5px $main;
+}
+
+.pointer{
+    cursor: pointer;
+}

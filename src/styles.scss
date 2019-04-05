@@ -1,0 +1,15 @@
+$main: #99ccdd;
+$warning: #c70;
+$dark: #222;
+$theme-colors: ( "main": $main );
+$border-radius: 1rem !default;
+$input-btn-padding-y: .25rem;
+$input-btn-padding-x: .5rem;
+@import '../node_modules/bootstrap/scss/bootstrap.scss';
+@import 'links.scss';
+@import 'forms.scss';
+@import 'buttons.scss';
+
+body {
+    padding: 0;
+}
