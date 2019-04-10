@@ -1,0 +1,60 @@
+<h4 class="text-center">Person info</h4>
+
+<div *ngIf="success">
+    <h6 class="alert alert-success text-center">Changes were succesfully saved</h6>
+</div>
+<div *ngIf="!success && errors">
+    <h6 class="col-12 text-center alert alert-danger">{{errors}}</h6>
+</div>
+
+<div *ngIf="person">
+    <table class="table table-bordered user-info">
+        <tr class="v-none"><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr>
+            <td colspan="4">First name</td>
+            <td colspan="14"><input type="text" [(ngModel)]="person.FirstName"/></td>
+        </tr>
+        <tr>
+            <td colspan="4">Last name</td>
+            <td colspan="14"><input type="text" [(ngModel)]="person.LastName"/></td>
+        </tr>
+        <tr>
+            <td colspan="4">Nationality</td>
+            <td colspan="5"><input type="text" [(ngModel)]="person.Nationality"/></td>
+            <td colspan="4">Birth date</td>
+            <td colspan="5"><input type="text" [(ngModel)]="person.BirthDate"/></td>
+        </tr>
+        <tr>
+            <td colspan="4">Address</td>
+            <td colspan="14"><input type="text" [(ngModel)]="person.Address"/></td>
+        </tr>
+        <tr>
+            <td colspan="4">Width</td>
+            <td colspan="2"><input type="number" [(ngModel)]="person.Width"/></td>
+            <td colspan="4">Height</td>
+            <td colspan="2"><input type="number" [(ngModel)]="person.Height"/></td>
+            <td colspan="4">Blood group</td>
+            <td colspan="2"><input type="text" [(ngModel)]="person.BloodGroup"/></td>
+        </tr>
+        <tr>
+            <td colspan="4">Email</td>
+            <td colspan="14"><input type="text" [(ngModel)]="person.Email"/></td>
+        </tr>
+        <!--User is admin or user is manager and password is null or user is me-->
+        <tr >
+            <td colspan="4">Password</td>
+            <td colspan="5"><input type="password" [(ngModel)]="person.Password"/></td>
+            <td colspan="4">Password confirm</td>
+            <td colspan="5"><input type="password" [(ngModel)]="person.PasswordConfirm"/></td>
+        </tr>
+    </table>
+    <div class="row justify-content-center">
+        <button class="col-2 btn btn-success" (click)="update()">Confirm</button>
+        <div class="col-1"></div>
+        <button class="col-2 btn btn-secondary" (click)="goBack()">Back</button>
+    </div>
+</div>
+
+<div *ngIf="!person" class="row justify-content-center">
+    <button class="col-2 btn btn-secondary" (click)="goBack()">Back</button>
+</div>

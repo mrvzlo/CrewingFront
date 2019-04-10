@@ -2,14 +2,14 @@
   <div class="container p-0">
       <nav class="navbar py-1 font-weight-bold navbar-expand justify-content-md-around navbar-dark">
           <div class="collapse navbar-collapse justify-content-center" id="nav">
-              <ul class="navbar-nav flex-fill w-100 flex-nowrap justify-content-start">
-                  <li class="nav-item">
-                      <a route-link="home" class="nav-link">Home</a>
-                  </li>
-                  <li class="nav-item">
-                    <a route-link="group" class="nav-link">Groups</a>
-                  </li>
-              </ul>
+            <ul class="navbar-nav flex-fill w-100 flex-nowrap justify-content-start">
+                <li class="nav-item"><a routerLink="/home" routerLinkActive="active" class="nav-link">Home</a></li>
+                <li class="nav-item"><a routerLink="/group" routerLinkActive="active" class="nav-link">Groups</a></li>
+            </ul>
+            <ul class="navbar-nav flex-fill w-100 flex-nowrap justify-content-end">
+              <li *ngIf="!accountService.loggedIn()" class="nav-item"><a routerLink="/account" routerLinkActive="active" class="nav-link">Login</a></li>
+              <li *ngIf="accountService.loggedIn()" class="nav-item"><a (click)="accountService.logout()" class="nav-link">Logout</a></li>
+            </ul>
           </div>
       </nav>
   </div>

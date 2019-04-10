@@ -1,9 +1,12 @@
 ﻿.btn-main{
     font-weight: bold;
     border: solid 2px darken($main, 25%);
+    background-color: lighten($main, 10%);
+    color: darken($main, 55%);
 }
 
 .btn-main:hover {
-    background-color: darken($main, 20%);
-    border: solid 2px white;
+    background-color: darken($main, 30%);
+    border: solid 2px darken($main, 30%);
+    color: #eeeeff;
 }
