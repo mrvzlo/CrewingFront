@@ -20,6 +20,7 @@ import { InterceptorService } from './interceptor.service';
 import { GroupCreateComponent } from './group/group-create/group-create.component';
 import { GroupRemoveComponent } from './group/group-remove/group-remove.component';
 import { PersonSearchComponent } from './person/person-search/person-search.component';
+import { ConnectionComponent } from './connection/connection.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { PersonSearchComponent } from './person/person-search/person-search.comp
     GroupInfoComponent,
     GroupCreateComponent,
     GroupRemoveComponent,
-    PersonSearchComponent
+    PersonSearchComponent,
+    ConnectionComponent
   ],
   imports: [
     BrowserModule,

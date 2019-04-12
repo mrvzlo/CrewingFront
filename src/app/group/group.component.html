@@ -1,5 +1,5 @@
-<div *ngIf="!groupList">
-    <h6 class="alert alert-info text-center">Group list is empty</h6>
+<div *ngIf="groupList && groupList.length == 0">
+    <h6 class="alert alert-info text-center my-2">Group list is empty</h6>
 </div>
 
 <div class="row">
