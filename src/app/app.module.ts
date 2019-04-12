@@ -17,6 +17,8 @@ import { AccountService } from './account/account.service';
 import { GroupService } from './group/group.service';
 import { AuthGuard } from './auth.guard';
 import { InterceptorService } from './interceptor.service';
+import { GroupCreateComponent } from './group/group-create/group-create.component';
+import { GroupRemoveComponent } from './group/group-remove/group-remove.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,9 @@ import { InterceptorService } from './interceptor.service';
     PersonComponent,
     SignInComponent,
     SignUpComponent,
-    GroupInfoComponent
+    GroupInfoComponent,
+    GroupCreateComponent,
+    GroupRemoveComponent
   ],
   imports: [
     BrowserModule,

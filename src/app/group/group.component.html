@@ -1,6 +1,17 @@
-<button class="btn btn-main float-right">Add new</button>
-<div>
-    <div *ngFor="let item of groupList; index as i;" class="m-2">
-        <a class="text-dark" routerLink="/group/{{item.Name}}">{{item.Name}}</a>
+<div class="row">
+    <table class="table table-hover w-100 col-6">
+        <tr *ngFor="let item of groupList; index as i;" class="m-2">
+            <td>
+                <a class="text-dark" routerLink="/group/{{item.Name}}">{{item.Name}}</a>
+            </td>
+            <td class="icon"><a class="pointer" (click)="showRemoving(item.Guid)" *ngIf="roleService.isAdmin()">❌</a></td>
+        </tr>
+        <tr *ngIf="roleService.isManagerOrH()">
+            <td colspan="2"><a class="bg-main" (click)="showCreation()">Add new</a></td>
+        </tr>
+    </table>
+    <div class="col-6">
+        <app-group-remove *ngIf="showGroupDeleting && !showGroupCreation"></app-group-remove>
+        <app-group-create *ngIf="showGroupCreation && !showGroupDeleting"></app-group-create>
     </div>
 </div>

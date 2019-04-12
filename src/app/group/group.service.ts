@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Group } from './group.model';
 import { serverurl } from '../serverurl';
+import { GroupCreation } from './group-create/group-creation.model';
 
 @Injectable({
   providedIn: 'root'
@@ -18,5 +19,15 @@ export class GroupService {
   getGroup(name: string): Observable<Group>{
     const url = serverurl + "Group/Info?name=" + name;
     return this.http.get<Group>(url);
+  }
+
+  createGroup(model: GroupCreation){
+    const url = serverurl + "Group/Create";
+    return this.http.post<any>(url, model);
+  }
+
+  removeGroup(name: string, guid: string){
+    const url = serverurl + "Group/Remove?guid="+guid+"&name="+name;
+    return this.http.post<any>(url, null);
   }
 }

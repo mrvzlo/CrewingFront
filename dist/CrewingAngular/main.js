@@ -135,7 +135,7 @@ exports.AccountService = AccountService;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<app-account></app-account>\n\n<div id=\"_SignIn\" class=\"tab-pane active\" role=\"tabpanel\">\n  <h4 class=\"text-center mb-3\">Registered user</h4>\n  <div class=\"row my-2 justify-content-around\">\n      <div class=\"error col-12\">{{errors.Sum}}</div>\n  </div>\n\n  <div class=\"row my-2 justify-content-around\">\n      <div class=\"col-md-2 text-center\">Email</div>\n      <div class=\"col-md-9\"><input type=\"text\" [(ngModel)]=\"model.Email\" id=\"email\" name=\"email\" autocomplete=\"email\"/></div>\n      <div class=\"error col-12\">{{errors.Email}}</div>\n  </div>\n  <div class=\"row my-2 justify-content-around\">\n      <div class=\"col-md-2 text-center\">Password</div>\n      <div class=\"col-md-9\"><input type=\"password\" [(ngModel)]=\"model.Password\" id=\"password\" name=\"password\" autocomplete=\"password\"/></div>\n      <div class=\"error col-12\">{{errors.Password}}</div>\n  </div>\n  <div class=\"row justify-content-center\">\n      <input type=\"submit\" class=\"col-md-2 col-4 btn btn-main py-2\" (click)=\"signIn()\" value=\"Sign in\"/>\n  </div>\n  <div class=\"row justify-content-end\">\n      <a routerLink=\"../signup\">Create an account</a>\n  </div>\n</div>\n\n<script>\n/*\n  <div class=\"row justify-content-center\">\n    <botdetect-captcha class=\"col-12 text-center\" captchaStyleName=\"1\"></botdetect-captcha>  \n    <div class=\"col-md-5\"><input type=\"text\" [(ngModel)]=\"model.Captcha\"/></div>\n  </div>*/</script>"
+module.exports = "<app-account></app-account>\n\n<div id=\"_SignIn\" class=\"tab-pane active\" role=\"tabpanel\">\n  <h4 class=\"text-center mb-3\">Registered user</h4>\n  <div class=\"row my-2 justify-content-around\">\n      <div class=\"error col-12\">{{errors.Sum}}</div>\n  </div>\n\n  <div class=\"row my-2 justify-content-around\">\n      <div class=\"col-md-2 text-center\">Email</div>\n      <div class=\"col-md-9\"><input type=\"text\" [(ngModel)]=\"model.Email\" id=\"email\" name=\"email\" autocomplete=\"email\"/></div>\n      <div class=\"error col-12\">{{errors.Email}}</div>\n  </div>\n  <div class=\"row my-2 justify-content-around\">\n      <div class=\"col-md-2 text-center\">Password</div>\n      <div class=\"col-md-9\"><input type=\"password\" [(ngModel)]=\"model.Password\" id=\"password\" name=\"password\" autocomplete=\"password\"/></div>\n      <div class=\"error col-12\">{{errors.Password}}</div>\n  </div>\n  <div class=\"row justify-content-center\">\n      <input type=\"submit\" class=\"col-md-2 col-4 btn btn-main py-2\" (click)=\"signIn()\" value=\"Sign in\"/>\n  </div>\n  <div class=\"row justify-content-end\">\n      <a routerLink=\"../signup\">Create an account</a>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -456,7 +456,8 @@ var account_service_1 = __webpack_require__(/*! ./account/account.service */ "./
 var group_service_1 = __webpack_require__(/*! ./group/group.service */ "./src/app/group/group.service.ts");
 var auth_guard_1 = __webpack_require__(/*! ./auth.guard */ "./src/app/auth.guard.ts");
 var interceptor_service_1 = __webpack_require__(/*! ./interceptor.service */ "./src/app/interceptor.service.ts");
-var angular_captcha_1 = __webpack_require__(/*! angular-captcha */ "./node_modules/angular-captcha/index.js");
+var group_create_component_1 = __webpack_require__(/*! ./group/group-create/group-create.component */ "./src/app/group/group-create/group-create.component.ts");
+var group_remove_component_1 = __webpack_require__(/*! ./group/group-remove/group-remove.component */ "./src/app/group/group-remove/group-remove.component.ts");
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -471,14 +472,15 @@ var AppModule = /** @class */ (function () {
                 person_component_1.PersonComponent,
                 sign_in_component_1.SignInComponent,
                 sign_up_component_1.SignUpComponent,
-                group_info_component_1.GroupInfoComponent
+                group_info_component_1.GroupInfoComponent,
+                group_create_component_1.GroupCreateComponent,
+                group_remove_component_1.GroupRemoveComponent
             ],
             imports: [
                 platform_browser_1.BrowserModule,
                 forms_1.FormsModule,
                 app_routing_module_1.AppRoutingModule,
-                http_1.HttpClientModule,
-                angular_captcha_1.BotDetectCaptchaModule.forRoot({ captchaEndpoint: "" })
+                http_1.HttpClientModule
             ],
             providers: [account_service_1.AccountService, group_service_1.GroupService, auth_guard_1.AuthGuard,
                 { provide: http_1.HTTP_INTERCEPTORS, useClass: interceptor_service_1.InterceptorService, multi: true }],
@@ -527,6 +529,98 @@ var AuthGuard = /** @class */ (function () {
     return AuthGuard;
 }());
 exports.AuthGuard = AuthGuard;
+
+
+/***/ }),
+
+/***/ "./src/app/group/group-create/group-create.component.html":
+/*!****************************************************************!*\
+  !*** ./src/app/group/group-create/group-create.component.html ***!
+  \****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "  <div class=\"row my-2 justify-content-around\">\n      <div class=\"col-md-5 text-center\">Group name</div>\n      <div class=\"col-md-8\"><input type=\"text\" [(ngModel)]=\"model.Name\" id=\"name\" name=\"name\" autocomplete=\"name\"/></div>\n      <div class=\"error col-12\">{{errors}}</div>\n      <input type=\"submit\" class=\"col-md-2 col-4 btn btn-main my-2\" (click)=\"create()\" value=\"Add\"/>\n  </div>"
+
+/***/ }),
+
+/***/ "./src/app/group/group-create/group-create.component.scss":
+/*!****************************************************************!*\
+  !*** ./src/app/group/group-create/group-create.component.scss ***!
+  \****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2dyb3VwL2dyb3VwLWNyZWF0ZS9ncm91cC1jcmVhdGUuY29tcG9uZW50LnNjc3MifQ== */"
+
+/***/ }),
+
+/***/ "./src/app/group/group-create/group-create.component.ts":
+/*!**************************************************************!*\
+  !*** ./src/app/group/group-create/group-create.component.ts ***!
+  \**************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var tslib_1 = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+var core_1 = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+var group_service_1 = __webpack_require__(/*! ../group.service */ "./src/app/group/group.service.ts");
+var group_component_1 = __webpack_require__(/*! ../group.component */ "./src/app/group/group.component.ts");
+var group_creation_model_1 = __webpack_require__(/*! ./group-creation.model */ "./src/app/group/group-create/group-creation.model.ts");
+var GroupCreateComponent = /** @class */ (function () {
+    function GroupCreateComponent(groupService, groupView) {
+        this.groupService = groupService;
+        this.groupView = groupView;
+        this.model = new group_creation_model_1.GroupCreation;
+    }
+    GroupCreateComponent.prototype.ngOnInit = function () {
+    };
+    GroupCreateComponent.prototype.create = function () {
+        var _this = this;
+        this.groupService.createGroup(this.model).subscribe(function (res) {
+            if (res.success) {
+                _this.groupView.showGroups();
+                _this.groupView.showCreation(false);
+            }
+            else {
+                _this.errors = res.result.Errors.Name;
+            }
+        });
+    };
+    GroupCreateComponent = tslib_1.__decorate([
+        core_1.Component({
+            selector: 'app-group-create',
+            template: __webpack_require__(/*! ./group-create.component.html */ "./src/app/group/group-create/group-create.component.html"),
+            styles: [__webpack_require__(/*! ./group-create.component.scss */ "./src/app/group/group-create/group-create.component.scss")]
+        }),
+        tslib_1.__metadata("design:paramtypes", [group_service_1.GroupService, group_component_1.GroupComponent])
+    ], GroupCreateComponent);
+    return GroupCreateComponent;
+}());
+exports.GroupCreateComponent = GroupCreateComponent;
+
+
+/***/ }),
+
+/***/ "./src/app/group/group-create/group-creation.model.ts":
+/*!************************************************************!*\
+  !*** ./src/app/group/group-create/group-creation.model.ts ***!
+  \************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var GroupCreation = /** @class */ (function () {
+    function GroupCreation() {
+    }
+    return GroupCreation;
+}());
+exports.GroupCreation = GroupCreation;
 
 
 /***/ }),
@@ -622,6 +716,60 @@ exports.GroupInfoComponent = GroupInfoComponent;
 
 /***/ }),
 
+/***/ "./src/app/group/group-remove/group-remove.component.html":
+/*!****************************************************************!*\
+  !*** ./src/app/group/group-remove/group-remove.component.html ***!
+  \****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ""
+
+/***/ }),
+
+/***/ "./src/app/group/group-remove/group-remove.component.scss":
+/*!****************************************************************!*\
+  !*** ./src/app/group/group-remove/group-remove.component.scss ***!
+  \****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2dyb3VwL2dyb3VwLXJlbW92ZS9ncm91cC1yZW1vdmUuY29tcG9uZW50LnNjc3MifQ== */"
+
+/***/ }),
+
+/***/ "./src/app/group/group-remove/group-remove.component.ts":
+/*!**************************************************************!*\
+  !*** ./src/app/group/group-remove/group-remove.component.ts ***!
+  \**************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var tslib_1 = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+var core_1 = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+var GroupRemoveComponent = /** @class */ (function () {
+    function GroupRemoveComponent() {
+    }
+    GroupRemoveComponent.prototype.ngOnInit = function () {
+    };
+    GroupRemoveComponent = tslib_1.__decorate([
+        core_1.Component({
+            selector: 'app-group-remove',
+            template: __webpack_require__(/*! ./group-remove.component.html */ "./src/app/group/group-remove/group-remove.component.html"),
+            styles: [__webpack_require__(/*! ./group-remove.component.scss */ "./src/app/group/group-remove/group-remove.component.scss")]
+        }),
+        tslib_1.__metadata("design:paramtypes", [])
+    ], GroupRemoveComponent);
+    return GroupRemoveComponent;
+}());
+exports.GroupRemoveComponent = GroupRemoveComponent;
+
+
+/***/ }),
+
 /***/ "./src/app/group/group.component.html":
 /*!********************************************!*\
   !*** ./src/app/group/group.component.html ***!
@@ -629,7 +777,7 @@ exports.GroupInfoComponent = GroupInfoComponent;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<button class=\"btn btn-main float-right\">Add new</button>\n<div>\n    <div *ngFor=\"let item of groupList; index as i;\" class=\"m-2\">\n        <a class=\"text-dark\" routerLink=\"/group/{{item.Name}}\">{{item.Name}}</a>\n    </div>\n</div>\n"
+module.exports = "<div class=\"row\">\n    <table class=\"table table-hover w-100 col-6\">\n        <tr *ngFor=\"let item of groupList; index as i;\" class=\"m-2\">\n            <td>\n                <a class=\"text-dark\" routerLink=\"/group/{{item.Name}}\">{{item.Name}}</a>\n            </td>\n            <td><a class=\"text-right\" (click)=\"showRemoving(item.Guid)\" *ngIf=\"roleService.isAdmin()\">❌</a></td>\n        </tr>\n        <tr *ngIf=\"roleService.isManagerOrH()\">\n            <td colspan=\"2\"><a class=\"bg-main\" (click)=\"showCreation()\">Add new</a></td>\n        </tr>\n    </table>\n    <div class=\"col-6\">\n        <app-group-remove></app-group-remove>\n        <app-group-create *ngIf=\"showGroupCreation\"></app-group-create>\n    </div>\n</div>\n"
 
 /***/ }),
 
@@ -640,7 +788,7 @@ module.exports = "<button class=\"btn btn-main float-right\">Add new</button>\n<
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2dyb3VwL2dyb3VwLmNvbXBvbmVudC5zY3NzIn0= */"
+module.exports = "td {\n  padding: 0; }\n\ntd a {\n  display: block;\n  padding: 0.5rem; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvZ3JvdXAvQzpcXFVzZXJzXFx2bGFkaW1pclxcc291cmNlXFxyZXBvc1xcQ3Jld2luZ0FuZ3VsYXIvc3JjXFxhcHBcXGdyb3VwXFxncm91cC5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLFVBQVUsRUFBQTs7QUFHZDtFQUNJLGNBQWM7RUFDZCxlQUFlLEVBQUEiLCJmaWxlIjoic3JjL2FwcC9ncm91cC9ncm91cC5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbInRke1xyXG4gICAgcGFkZGluZzogMDtcclxufVxyXG5cclxudGQgYXtcclxuICAgIGRpc3BsYXk6IGJsb2NrO1xyXG4gICAgcGFkZGluZzogMC41cmVtO1xyXG59Il19 */"
 
 /***/ }),
 
@@ -659,13 +807,22 @@ var core_1 = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/c
 var group_service_1 = __webpack_require__(/*! ./group.service */ "./src/app/group/group.service.ts");
 var http_1 = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
 var router_1 = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+var role_service_1 = __webpack_require__(/*! ../role.service */ "./src/app/role.service.ts");
 var GroupComponent = /** @class */ (function () {
-    function GroupComponent(groupService, router) {
+    function GroupComponent(groupService, router, roleService) {
         this.groupService = groupService;
         this.router = router;
+        this.roleService = roleService;
     }
+    GroupComponent.prototype.showCreation = function (show) {
+        if (show === void 0) { show = !this.showGroupCreation; }
+        this.showGroupCreation = show;
+    };
     GroupComponent.prototype.ngOnInit = function () {
         this.showGroups();
+    };
+    GroupComponent.prototype.showRemoving = function (guid) {
+        this.removeable = guid;
     };
     GroupComponent.prototype.showGroups = function () {
         var _this = this;
@@ -682,7 +839,7 @@ var GroupComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./group.component.html */ "./src/app/group/group.component.html"),
             styles: [__webpack_require__(/*! ./group.component.scss */ "./src/app/group/group.component.scss")]
         }),
-        tslib_1.__metadata("design:paramtypes", [group_service_1.GroupService, router_1.Router])
+        tslib_1.__metadata("design:paramtypes", [group_service_1.GroupService, router_1.Router, role_service_1.RoleService])
     ], GroupComponent);
     return GroupComponent;
 }());
@@ -736,6 +893,10 @@ var GroupService = /** @class */ (function () {
     GroupService.prototype.getGroup = function (name) {
         var url = serverurl_1.serverurl + "Group/Info?name=" + name;
         return this.http.get(url);
+    };
+    GroupService.prototype.createGroup = function (model) {
+        var url = serverurl_1.serverurl + "Group/Create";
+        return this.http.post(url, model);
     };
     GroupService = tslib_1.__decorate([
         core_1.Injectable({
@@ -1094,6 +1255,49 @@ var PersonService = /** @class */ (function () {
     return PersonService;
 }());
 exports.PersonService = PersonService;
+
+
+/***/ }),
+
+/***/ "./src/app/role.service.ts":
+/*!*********************************!*\
+  !*** ./src/app/role.service.ts ***!
+  \*********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var tslib_1 = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+var core_1 = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+var RoleService = /** @class */ (function () {
+    function RoleService() {
+    }
+    RoleService.prototype.isAdmin = function () {
+        return localStorage.getItem('role') == "Admin";
+    };
+    RoleService.prototype.isManager = function () {
+        return localStorage.getItem('role') == "Manager";
+    };
+    RoleService.prototype.isCaptain = function () {
+        return localStorage.getItem('role') == "Captain";
+    };
+    RoleService.prototype.isManagerOrH = function () {
+        return this.isAdmin() || this.isManager();
+    };
+    RoleService.prototype.isCaptainOrH = function () {
+        return this.isCaptainOrH() || this.isCaptain();
+    };
+    RoleService = tslib_1.__decorate([
+        core_1.Injectable({
+            providedIn: 'root'
+        }),
+        tslib_1.__metadata("design:paramtypes", [])
+    ], RoleService);
+    return RoleService;
+}());
+exports.RoleService = RoleService;
 
 
 /***/ }),
