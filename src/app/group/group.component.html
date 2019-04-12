@@ -1,3 +1,7 @@
+<div *ngIf="!groupList">
+    <h6 class="alert alert-info text-center">Group list is empty</h6>
+</div>
+
 <div class="row">
     <table class="table table-hover w-100 col-6">
         <tr *ngFor="let item of groupList; index as i;" class="m-2">

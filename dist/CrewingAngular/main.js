@@ -349,15 +349,18 @@ var sign_up_component_1 = __webpack_require__(/*! ./account/sign-up/sign-up.comp
 var group_info_component_1 = __webpack_require__(/*! ./group/group-info/group-info.component */ "./src/app/group/group-info/group-info.component.ts");
 var auth_guard_1 = __webpack_require__(/*! ./auth.guard */ "./src/app/auth.guard.ts");
 var person_component_1 = __webpack_require__(/*! ./person/person.component */ "./src/app/person/person.component.ts");
+var person_search_component_1 = __webpack_require__(/*! ./person/person-search/person-search.component */ "./src/app/person/person-search/person-search.component.ts");
 var routes = [
-    { path: '', redirectTo: '/home', pathMatch: 'full' },
-    { path: 'account', redirectTo: '/account/signin', pathMatch: 'full' },
     { path: 'account/signin', component: sign_in_component_1.SignInComponent },
     { path: 'account/signup', component: sign_up_component_1.SignUpComponent },
-    { path: 'group', component: group_component_1.GroupComponent, canActivate: [auth_guard_1.AuthGuard] },
     { path: 'group/:name', component: group_info_component_1.GroupInfoComponent, canActivate: [auth_guard_1.AuthGuard] },
-    { path: 'person/:guid', component: person_component_1.PersonComponent, canActivate: [auth_guard_1.AuthGuard] },
+    { path: 'group', component: group_component_1.GroupComponent, canActivate: [auth_guard_1.AuthGuard] },
+    { path: 'person/info/:guid', component: person_component_1.PersonComponent, canActivate: [auth_guard_1.AuthGuard] },
+    { path: 'person/search', component: person_search_component_1.PersonSearchComponent, canActivate: [auth_guard_1.AuthGuard] },
     { path: 'home', component: home_component_1.HomeComponent },
+    { path: 'account', redirectTo: '/account/signin', pathMatch: 'full' },
+    { path: 'person', redirectTo: '/person/search', pathMatch: 'full' },
+    { path: '', redirectTo: '/home', pathMatch: 'full' },
 ];
 var AppRoutingModule = /** @class */ (function () {
     function AppRoutingModule() {
@@ -458,6 +461,7 @@ var auth_guard_1 = __webpack_require__(/*! ./auth.guard */ "./src/app/auth.guard
 var interceptor_service_1 = __webpack_require__(/*! ./interceptor.service */ "./src/app/interceptor.service.ts");
 var group_create_component_1 = __webpack_require__(/*! ./group/group-create/group-create.component */ "./src/app/group/group-create/group-create.component.ts");
 var group_remove_component_1 = __webpack_require__(/*! ./group/group-remove/group-remove.component */ "./src/app/group/group-remove/group-remove.component.ts");
+var person_search_component_1 = __webpack_require__(/*! ./person/person-search/person-search.component */ "./src/app/person/person-search/person-search.component.ts");
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -474,7 +478,8 @@ var AppModule = /** @class */ (function () {
                 sign_up_component_1.SignUpComponent,
                 group_info_component_1.GroupInfoComponent,
                 group_create_component_1.GroupCreateComponent,
-                group_remove_component_1.GroupRemoveComponent
+                group_remove_component_1.GroupRemoveComponent,
+                person_search_component_1.PersonSearchComponent
             ],
             imports: [
                 platform_browser_1.BrowserModule,
@@ -540,7 +545,7 @@ exports.AuthGuard = AuthGuard;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "  <div class=\"row my-2 justify-content-around\">\n      <div class=\"col-md-5 text-center\">Group name</div>\n      <div class=\"col-md-8\"><input type=\"text\" [(ngModel)]=\"model.Name\" id=\"name\" name=\"name\" autocomplete=\"name\"/></div>\n      <div class=\"error col-12\">{{errors}}</div>\n      <input type=\"submit\" class=\"col-md-2 col-4 btn btn-main my-2\" (click)=\"create()\" value=\"Add\"/>\n  </div>"
+module.exports = "  <h6 class=\"text-center my-2\">New group</h6>  \n  <div class=\"row my-2 justify-content-center\">\n      <div class=\"col-md-3 text-center\">Name</div>\n      <div class=\"col-md-9\"><input type=\"text\" [(ngModel)]=\"model.Name\" id=\"name\" name=\"name\" autocomplete=\"name\"/></div>\n      <div class=\"error col-12\">{{errors}}</div>\n      <input type=\"submit\" class=\"col-md-2 btn btn-main my-2\" (click)=\"create()\" value=\"Add\"/>\n      <div class=\"col-1\"></div>\n      <button class=\"col-md-2 btn btn-secondary my-2\" (click)=\"cancel()\">Cancel</button>\n  </div>"
 
 /***/ }),
 
@@ -583,12 +588,17 @@ var GroupCreateComponent = /** @class */ (function () {
         this.groupService.createGroup(this.model).subscribe(function (res) {
             if (res.success) {
                 _this.groupView.showGroups();
-                _this.groupView.showCreation(false);
+                _this.groupView.hide();
             }
             else {
                 _this.errors = res.result.Errors.Name;
             }
         });
+    };
+    GroupCreateComponent.prototype.cancel = function () {
+        this.model = null;
+        this.errors = "";
+        this.groupView.hide();
     };
     GroupCreateComponent = tslib_1.__decorate([
         core_1.Component({
@@ -632,7 +642,7 @@ exports.GroupCreation = GroupCreation;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div *ngIf=\"group\" class=\"row justify-content-center\">\n    <div class=\"col-6\">\n        <div class=\"h4 my-2 text-center\">{{group.Name}} owners</div>\n        <table class=\"table table-hover text-center\">\n            <tr><td *ngFor=\"let p of owners; index as i;\" class=\"m-2\" routerLink=\"/person/{{p.Guid}}\">{{p.FirstName}} {{p.LastName}}</td></tr>\n            <tr><td class=\"col-12 text-center\">Add new</td></tr>\n        </table>\n    </div>\n    <div class=\"col-6\">\n        <div class=\"h4 my-2 text-center\">{{group.Name}} members</div>\n        <table class=\"table table-hover text-center\">\n            <tr><td *ngFor=\"let p of members; index as i;\" class=\"m-2\" routerLink=\"/person/{{p.Guid}}\">{{p.FirstName}} {{p.LastName}}</td></tr>\n            <tr><td class=\"col-12 text-center\">Add new</td></tr>\n        </table>\n    </div>\n</div>\n<div *ngIf=\"!group\">\n    This group was not found\n</div>\n<button (click)=\"goBack()\" class=\"btn btn-main float-right\">Go back</button>\n"
+module.exports = "<div *ngIf=\"group\" class=\"row justify-content-center\">\n    <div class=\"col-6\">\n        <div class=\"h4 my-2 text-center\">{{group.Name}} owners</div>\n        <table class=\"table table-hover text-center\">\n            <tr><td *ngFor=\"let p of owners; index as i;\" class=\"m-2 pointer\" routerLink=\"/person/info/{{p.Guid}}\">{{p.FirstName}} {{p.LastName}}</td></tr>\n        </table>\n    </div>\n    <div class=\"col-6\">\n        <div class=\"h4 my-2 text-center\">{{group.Name}} members</div>\n        <table class=\"table table-hover text-center\">\n            <tr><td *ngFor=\"let p of members; index as i;\" class=\"m-2 pointer\" routerLink=\"/person/info/{{p.Guid}}\">{{p.FirstName}} {{p.LastName}}</td></tr>\n        </table>\n    </div>\n</div>\n<div *ngIf=\"!group\">\n    This group was not found\n</div>\n<button class=\"btn btn-main float-right\">Add new</button>\n"
 
 /***/ }),
 
@@ -723,7 +733,7 @@ exports.GroupInfoComponent = GroupInfoComponent;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ""
+module.exports = "<div class=\"row my-2 justify-content-center\">\r\n    <div class=\"col-md-5 text-center\">Type in the name of group to confirm deleting</div>\r\n    <div class=\"col-md-8\"><input type=\"text\" [(ngModel)]=\"name\" id=\"name\" name=\"name\" autocomplete=\"name\"/></div>\r\n    <div class=\"error col-12\">{{errors}}</div>\r\n    <input type=\"submit\" class=\"col-md-2 col-4 btn btn-danger my-2\" (click)=\"delete()\" value=\"Confirm\"/>\r\n    <div class=\"col-1\"></div>\r\n    <button class=\"col-md-2 col-4 btn btn-secondary my-2\" (click)=\"cancel()\">Cancel</button>\r\n</div>"
 
 /***/ }),
 
@@ -750,10 +760,32 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 Object.defineProperty(exports, "__esModule", { value: true });
 var tslib_1 = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 var core_1 = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+var group_component_1 = __webpack_require__(/*! ../group.component */ "./src/app/group/group.component.ts");
+var group_service_1 = __webpack_require__(/*! ../group.service */ "./src/app/group/group.service.ts");
 var GroupRemoveComponent = /** @class */ (function () {
-    function GroupRemoveComponent() {
+    function GroupRemoveComponent(groupView, groupService) {
+        this.groupView = groupView;
+        this.groupService = groupService;
     }
     GroupRemoveComponent.prototype.ngOnInit = function () {
+    };
+    GroupRemoveComponent.prototype.delete = function () {
+        var _this = this;
+        var guid = this.groupView.removeable;
+        this.groupService.removeGroup(this.name, guid).subscribe(function (res) {
+            if (res.success) {
+                _this.groupView.showGroups();
+                _this.groupView.hide();
+            }
+            else {
+                _this.errors = res.result.Errors.Sum;
+            }
+        });
+    };
+    GroupRemoveComponent.prototype.cancel = function () {
+        this.name = "";
+        this.errors = "";
+        this.groupView.hide();
     };
     GroupRemoveComponent = tslib_1.__decorate([
         core_1.Component({
@@ -761,7 +793,7 @@ var GroupRemoveComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./group-remove.component.html */ "./src/app/group/group-remove/group-remove.component.html"),
             styles: [__webpack_require__(/*! ./group-remove.component.scss */ "./src/app/group/group-remove/group-remove.component.scss")]
         }),
-        tslib_1.__metadata("design:paramtypes", [])
+        tslib_1.__metadata("design:paramtypes", [group_component_1.GroupComponent, group_service_1.GroupService])
     ], GroupRemoveComponent);
     return GroupRemoveComponent;
 }());
@@ -777,7 +809,7 @@ exports.GroupRemoveComponent = GroupRemoveComponent;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"row\">\n    <table class=\"table table-hover w-100 col-6\">\n        <tr *ngFor=\"let item of groupList; index as i;\" class=\"m-2\">\n            <td>\n                <a class=\"text-dark\" routerLink=\"/group/{{item.Name}}\">{{item.Name}}</a>\n            </td>\n            <td><a class=\"text-right\" (click)=\"showRemoving(item.Guid)\" *ngIf=\"roleService.isAdmin()\">❌</a></td>\n        </tr>\n        <tr *ngIf=\"roleService.isManagerOrH()\">\n            <td colspan=\"2\"><a class=\"bg-main\" (click)=\"showCreation()\">Add new</a></td>\n        </tr>\n    </table>\n    <div class=\"col-6\">\n        <app-group-remove></app-group-remove>\n        <app-group-create *ngIf=\"showGroupCreation\"></app-group-create>\n    </div>\n</div>\n"
+module.exports = "<div *ngIf=\"!groupList\">\n    <h6 class=\"alert alert-info text-center\">Group list is empty</h6>\n</div>\n\n<div class=\"row\">\n    <table class=\"table table-hover w-100 col-6\">\n        <tr *ngFor=\"let item of groupList; index as i;\" class=\"m-2\">\n            <td>\n                <a class=\"text-dark\" routerLink=\"/group/{{item.Name}}\">{{item.Name}}</a>\n            </td>\n            <td class=\"icon\"><a class=\"pointer\" (click)=\"showRemoving(item.Guid)\" *ngIf=\"roleService.isAdmin()\">❌</a></td>\n        </tr>\n        <tr *ngIf=\"roleService.isManagerOrH()\">\n            <td colspan=\"2\"><a class=\"bg-main\" (click)=\"showCreation()\">Add new</a></td>\n        </tr>\n    </table>\n    <div class=\"col-6\">\n        <app-group-remove *ngIf=\"showGroupDeleting && !showGroupCreation\"></app-group-remove>\n        <app-group-create *ngIf=\"showGroupCreation && !showGroupDeleting\"></app-group-create>\n    </div>\n</div>"
 
 /***/ }),
 
@@ -788,7 +820,7 @@ module.exports = "<div class=\"row\">\n    <table class=\"table table-hover w-10
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "td {\n  padding: 0; }\n\ntd a {\n  display: block;\n  padding: 0.5rem; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvZ3JvdXAvQzpcXFVzZXJzXFx2bGFkaW1pclxcc291cmNlXFxyZXBvc1xcQ3Jld2luZ0FuZ3VsYXIvc3JjXFxhcHBcXGdyb3VwXFxncm91cC5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLFVBQVUsRUFBQTs7QUFHZDtFQUNJLGNBQWM7RUFDZCxlQUFlLEVBQUEiLCJmaWxlIjoic3JjL2FwcC9ncm91cC9ncm91cC5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbInRke1xyXG4gICAgcGFkZGluZzogMDtcclxufVxyXG5cclxudGQgYXtcclxuICAgIGRpc3BsYXk6IGJsb2NrO1xyXG4gICAgcGFkZGluZzogMC41cmVtO1xyXG59Il19 */"
+module.exports = "td {\n  padding: 0; }\n\ntd a {\n  display: block;\n  padding: 0.5rem; }\n\n.icon {\n  width: 40px; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvZ3JvdXAvQzpcXFVzZXJzXFx2bGFkaW1pclxcc291cmNlXFxyZXBvc1xcQ3Jld2luZ0FuZ3VsYXIvc3JjXFxhcHBcXGdyb3VwXFxncm91cC5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLFVBQVUsRUFBQTs7QUFHZDtFQUNJLGNBQWM7RUFDZCxlQUFlLEVBQUE7O0FBR25CO0VBQ0ksV0FBVyxFQUFBIiwiZmlsZSI6InNyYy9hcHAvZ3JvdXAvZ3JvdXAuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJ0ZHtcclxuICAgIHBhZGRpbmc6IDA7XHJcbn1cclxuXHJcbnRkIGF7XHJcbiAgICBkaXNwbGF5OiBibG9jaztcclxuICAgIHBhZGRpbmc6IDAuNXJlbTtcclxufVxyXG5cclxuLmljb257XHJcbiAgICB3aWR0aDogNDBweDtcclxufSJdfQ== */"
 
 /***/ }),
 
@@ -814,14 +846,20 @@ var GroupComponent = /** @class */ (function () {
         this.router = router;
         this.roleService = roleService;
     }
-    GroupComponent.prototype.showCreation = function (show) {
-        if (show === void 0) { show = !this.showGroupCreation; }
-        this.showGroupCreation = show;
+    GroupComponent.prototype.showCreation = function () {
+        this.showGroupCreation = true;
+        this.showGroupDeleting = false;
     };
     GroupComponent.prototype.ngOnInit = function () {
         this.showGroups();
     };
+    GroupComponent.prototype.hide = function () {
+        this.showGroupDeleting = false;
+        this.showGroupCreation = false;
+    };
     GroupComponent.prototype.showRemoving = function (guid) {
+        this.showGroupDeleting = true;
+        this.showGroupCreation = false;
         this.removeable = guid;
     };
     GroupComponent.prototype.showGroups = function () {
@@ -897,6 +935,10 @@ var GroupService = /** @class */ (function () {
     GroupService.prototype.createGroup = function (model) {
         var url = serverurl_1.serverurl + "Group/Create";
         return this.http.post(url, model);
+    };
+    GroupService.prototype.removeGroup = function (name, guid) {
+        var url = serverurl_1.serverurl + "Group/Remove?guid=" + guid + "&name=" + name;
+        return this.http.post(url, null);
     };
     GroupService = tslib_1.__decorate([
         core_1.Injectable({
@@ -1049,7 +1091,7 @@ exports.InterceptorService = InterceptorService;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-fluid bg-main p-0 sticky-top\">\n  <div class=\"container p-0\">\n      <nav class=\"navbar py-1 font-weight-bold navbar-expand justify-content-md-around navbar-dark\">\n          <div class=\"collapse navbar-collapse justify-content-center\" id=\"nav\">\n            <ul class=\"navbar-nav flex-fill w-100 flex-nowrap justify-content-start\">\n                <li class=\"nav-item\"><a routerLink=\"/home\" routerLinkActive=\"active\" class=\"nav-link\">Home</a></li>\n                <li class=\"nav-item\"><a routerLink=\"/group\" routerLinkActive=\"active\" class=\"nav-link\">Groups</a></li>\n            </ul>\n            <ul class=\"navbar-nav flex-fill w-100 flex-nowrap justify-content-end\">\n              <li *ngIf=\"!accountService.loggedIn()\" class=\"nav-item\"><a routerLink=\"/account\" routerLinkActive=\"active\" class=\"nav-link\">Login</a></li>\n              <li *ngIf=\"accountService.loggedIn()\" class=\"nav-item\"><a (click)=\"accountService.logout()\" class=\"nav-link\">Logout</a></li>\n            </ul>\n          </div>\n      </nav>\n  </div>\n</div>"
+module.exports = "<div class=\"container-fluid bg-main p-0 sticky-top\">\n  <div class=\"container p-0\">\n      <nav class=\"navbar py-1 font-weight-bold navbar-expand justify-content-md-around navbar-dark\">\n          <div class=\"collapse navbar-collapse justify-content-center\" id=\"nav\">\n            <ul class=\"navbar-nav flex-fill w-100 flex-nowrap justify-content-start\">\n                <li class=\"nav-item\"><a routerLink=\"/home\" routerLinkActive=\"active\" class=\"nav-link\">Home</a></li>\n                <li class=\"nav-item\"><a routerLink=\"/group\" routerLinkActive=\"active\" class=\"nav-link\">Groups</a></li>\n                <li class=\"nav-item\"><a routerLink=\"/person\" routerLinkActive=\"active\" class=\"nav-link\">People</a></li>\n            </ul>\n            <ul class=\"navbar-nav flex-fill w-100 flex-nowrap justify-content-end\">\n              <li *ngIf=\"!accountService.loggedIn()\" class=\"nav-item\"><a routerLink=\"/account\" routerLinkActive=\"active\" class=\"nav-link\">Login</a></li>\n              <li *ngIf=\"accountService.loggedIn()\" class=\"nav-item\"><a (click)=\"accountService.logout()\" class=\"nav-link\">Logout</a></li>\n            </ul>\n          </div>\n      </nav>\n  </div>\n</div>"
 
 /***/ }),
 
@@ -1094,6 +1136,70 @@ var NavbarComponent = /** @class */ (function () {
     return NavbarComponent;
 }());
 exports.NavbarComponent = NavbarComponent;
+
+
+/***/ }),
+
+/***/ "./src/app/person/person-search/person-search.component.html":
+/*!*******************************************************************!*\
+  !*** ./src/app/person/person-search/person-search.component.html ***!
+  \*******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"row my-2 justify-content-center\">\n    <div class=\"col-md-5 text-center\">Person full name</div>\n    <div class=\"col-md-8\"><input #searchBox id=\"search-box\" (input)=\"search(searchBox.value)\"/></div>\n</div>\n<table class=\"table table-hover\">\n  <tr *ngFor=\"let p of people$ | async\">\n    <td><a routerLink=\"/person/info/{{p.Guid}}\" class=\"text-dark\">{{p.FirstName}} {{p.LastName}}</a></td>\n  </tr>\n</table>"
+
+/***/ }),
+
+/***/ "./src/app/person/person-search/person-search.component.scss":
+/*!*******************************************************************!*\
+  !*** ./src/app/person/person-search/person-search.component.scss ***!
+  \*******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3BlcnNvbi9wZXJzb24tc2VhcmNoL3BlcnNvbi1zZWFyY2guY29tcG9uZW50LnNjc3MifQ== */"
+
+/***/ }),
+
+/***/ "./src/app/person/person-search/person-search.component.ts":
+/*!*****************************************************************!*\
+  !*** ./src/app/person/person-search/person-search.component.ts ***!
+  \*****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var tslib_1 = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+var core_1 = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+var person_service_1 = __webpack_require__(/*! ../person.service */ "./src/app/person/person.service.ts");
+var rxjs_1 = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+var operators_1 = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+var PersonSearchComponent = /** @class */ (function () {
+    function PersonSearchComponent(personService) {
+        this.personService = personService;
+        this.searchTerms = new rxjs_1.Subject();
+    }
+    PersonSearchComponent.prototype.search = function (name) {
+        this.searchTerms.next(name);
+    };
+    PersonSearchComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.people$ = this.searchTerms.pipe(operators_1.debounceTime(300), operators_1.distinctUntilChanged(), operators_1.switchMap(function (name) { return _this.personService.searchPeople(name); }));
+    };
+    PersonSearchComponent = tslib_1.__decorate([
+        core_1.Component({
+            selector: 'app-person-search',
+            template: __webpack_require__(/*! ./person-search.component.html */ "./src/app/person/person-search/person-search.component.html"),
+            styles: [__webpack_require__(/*! ./person-search.component.scss */ "./src/app/person/person-search/person-search.component.scss")]
+        }),
+        tslib_1.__metadata("design:paramtypes", [person_service_1.PersonService])
+    ], PersonSearchComponent);
+    return PersonSearchComponent;
+}());
+exports.PersonSearchComponent = PersonSearchComponent;
 
 
 /***/ }),
@@ -1226,6 +1332,7 @@ var tslib_1 = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.j
 var core_1 = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 var http_1 = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
 var serverurl_1 = __webpack_require__(/*! ../serverurl */ "./src/app/serverurl.ts");
+var rxjs_1 = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
 var PersonService = /** @class */ (function () {
     function PersonService(http) {
         this.http = http;
@@ -1245,6 +1352,13 @@ var PersonService = /** @class */ (function () {
     PersonService.prototype.postPerson = function (person) {
         var url = serverurl_1.serverurl + "Person/ChangeInfo";
         return this.http.post(url, person);
+    };
+    PersonService.prototype.searchPeople = function (name) {
+        name = name.trim();
+        if (!name)
+            return rxjs_1.of([]);
+        var url = serverurl_1.serverurl + "Person/GetNamesByStart?start=" + name;
+        return this.http.get(url);
     };
     PersonService = tslib_1.__decorate([
         core_1.Injectable({

@@ -19,6 +19,7 @@ import { AuthGuard } from './auth.guard';
 import { InterceptorService } from './interceptor.service';
 import { GroupCreateComponent } from './group/group-create/group-create.component';
 import { GroupRemoveComponent } from './group/group-remove/group-remove.component';
+import { PersonSearchComponent } from './person/person-search/person-search.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { GroupRemoveComponent } from './group/group-remove/group-remove.componen
     SignUpComponent,
     GroupInfoComponent,
     GroupCreateComponent,
-    GroupRemoveComponent
+    GroupRemoveComponent,
+    PersonSearchComponent
   ],
   imports: [
     BrowserModule,

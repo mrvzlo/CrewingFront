@@ -30,4 +30,10 @@ export class GroupCreateComponent implements OnInit {
       }
     ); 
   }
+  
+  cancel(){
+    this.model = null;
+    this.errors = "";
+    this.groupView.hide();
+  }
 }

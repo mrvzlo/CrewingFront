@@ -4,7 +4,6 @@ import { Group } from './group.model';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { RoleService } from '../role.service';
-import { GroupRemoveComponent } from './group-remove/group-remove.component';
 
 @Component({
   selector: 'app-group',

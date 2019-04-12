@@ -1,12 +1,15 @@
-﻿.btn-main{
-    font-weight: bold;
-    border: solid 2px darken($main, 25%);
-    background-color: lighten($main, 10%);
-    color: darken($main, 55%);
-}
+﻿$darkening: 50%;
+$lightening: 5%;
 
-.btn-main:hover {
-    background-color: darken($main, 30%);
-    border: solid 2px darken($main, 30%);
-    color: #eeeeff;
+@each $color, $value in $theme-colors {
+    .btn-#{$color} {
+        font-weight: bold;
+        border: solid 2px darken($value, $darkening);
+        background-color: lighten($value, $lightening);
+        color: darken($value, $darkening);
+    }
+
+    .btn-#{$color}:hover {
+        border: solid 2px darken($value, $darkening);
+    }
 }

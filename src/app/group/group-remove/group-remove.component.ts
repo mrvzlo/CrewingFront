@@ -22,7 +22,6 @@ export class GroupRemoveComponent implements OnInit {
     
     this.groupService.removeGroup(this.name,guid).subscribe(
       res => {
-        console.log(res);
         if (res.success){
           this.groupView.showGroups();
           this.groupView.hide();
@@ -31,5 +30,11 @@ export class GroupRemoveComponent implements OnInit {
         }
       }
     ); 
+  }
+
+  cancel(){
+    this.name="";
+    this.errors="";
+    this.groupView.hide();
   }
 }
