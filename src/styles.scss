@@ -1,15 +1,26 @@
-$main: #99ccdd;
-$warning: #c70;
-$dark: #222;
-$theme-colors: ( "main": $main );
-$border-radius: 1rem !default;
-$input-btn-padding-y: .25rem;
-$input-btn-padding-x: .5rem;
-@import '../node_modules/bootstrap/scss/bootstrap.scss';
-@import 'links.scss';
+@import '~@angular/material/theming';
+@include mat-core();
+$CrewingAngular-primary: mat-palette($mat-indigo);
+$CrewingAngular-accent: mat-palette($mat-pink, A200, A100, A400);
+$CrewingAngular-warn: mat-palette($mat-red);
+$CrewingAngular-theme: mat-light-theme($CrewingAngular-primary, $CrewingAngular-accent, $CrewingAngular-warn);
+@include angular-material-theme($CrewingAngular-theme);
 @import 'forms.scss';
 @import 'buttons.scss';
 
-body {
-    padding: 0;
+body {padding: 0; margin: 0;}
+*{font-size: 1rem;    font-family: sans-serif !important;}
+html, body { height: 100%; }
+
+.container{
+    margin-left: 10%;
+    width: 80%;
 }
+
+.pointer{cursor: pointer;}
+
+a{text-decoration: none;}
+
+h1, h2, h3, h4, h5, h6{ margin: .5rem 0;}
+
+.w100{width: 100%;}

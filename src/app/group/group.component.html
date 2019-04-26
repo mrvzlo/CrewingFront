@@ -1,21 +1,24 @@
 <div *ngIf="groupList && groupList.length == 0">
-    <h6 class="alert alert-info text-center my-2">Group list is empty</h6>
+    <h6 class="text-center">Group list is empty</h6>
 </div>
 
-<div class="row">
-    <table class="table table-hover w-100 col-6">
-        <tr *ngFor="let item of groupList; index as i;" class="m-2">
-            <td>
-                <a class="text-dark" routerLink="/group/{{item.Name}}">{{item.Name}}</a>
-            </td>
-            <td class="icon"><a class="pointer" (click)="showRemoving(item.Guid)" *ngIf="roleService.isAdmin()">❌</a></td>
-        </tr>
-        <tr *ngIf="roleService.isManagerOrH()">
-            <td colspan="2"><a class="bg-main" (click)="showCreation()">Add new</a></td>
-        </tr>
-    </table>
-    <div class="col-6">
+<mat-grid-list cols="2" rowHeight="">
+    <mat-grid-tile class="tab">
+        <table mat-table [dataSource]="groupList">
+            <ng-container matColumnDef="Name">
+                <td mat-cell *matCellDef="let item"><a routerLink="/group/{{item.Name}}" class="pointer">{{item.Name}}</a></td>
+                <td mat-footer-cell *matFooterCellDef colspan="2"><a class="pointer" (click)="showCreation()">Add new</a></td>
+            </ng-container>
+            <ng-container matColumnDef="Del">
+                <td mat-cell *matCellDef="let item" class="icon"><a class="pointer text-center" (click)="showRemoving(item.Guid)" *ngIf="roleService.isAdmin()">❌</a></td>
+                <td mat-footer-cell *matFooterCellDef></td>
+            </ng-container>
+            <tr mat-row *matRowDef="let row; columns: ['Name', 'Del'];"></tr>
+            <tr mat-footer-row *matFooterRowDef="['Name', 'Del']"></tr>
+        </table>
+    </mat-grid-tile>
+    <mat-grid-tile class="tab">
         <app-group-remove *ngIf="showGroupDeleting && !showGroupCreation"></app-group-remove>
         <app-group-create *ngIf="showGroupCreation && !showGroupDeleting"></app-group-create>
-    </div>
-</div>
+    </mat-grid-tile>
+</mat-grid-list>

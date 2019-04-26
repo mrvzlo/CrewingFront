@@ -14,6 +14,11 @@ export class GroupService {
   getGroupList(): Observable<Group[]>{
     const url = serverurl + "Group/List";
     return this.http.get<Group[]>(url);
+  }  
+  
+  getGroupNames(): Observable<string[]>{
+    const url = serverurl + "Group/Names";
+    return this.http.get<string[]>(url);
   }
 
   getGroup(name: string): Observable<Group>{

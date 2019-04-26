@@ -1,9 +1,13 @@
-<div class="row my-2 justify-content-center">
-    <div class="col-md-5 text-center">Person full name</div>
-    <div class="col-md-8"><input #searchBox id="search-box" (input)="search(searchBox.value)"/></div>
+<div class="text-center">
+    <h4>Person name</h4>
+    <input #searchBox id="search-box" (input)="search(searchBox.value)"/>
+    <table mat-table [dataSource]="people$" class="w100">
+        <ng-container matColumnDef="Name">
+            <td mat-cell *matCellDef="let p"><a routerLink="/person/info/{{p.Guid}}" class="text-dark">{{p.FirstName}} {{p.LastName}}</a></td>
+        </ng-container>
+        <tr mat-row *matRowDef="let row; columns: ['Name'];"></tr>
+    </table>
 </div>
-<table class="table table-hover">
-  <tr *ngFor="let p of people$ | async">
-    <td><a routerLink="/person/info/{{p.Guid}}" class="text-dark">{{p.FirstName}} {{p.LastName}}</a></td>
-  </tr>
-</table>
+
+
+

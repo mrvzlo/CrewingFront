@@ -1,12 +1,20 @@
-td{
-    padding: 0;
-}
-
-td a{
-    display: block;
-    padding: 0.5rem;
-}
+@import '../../tables.scss';
 
 .icon{
-    width: 40px;
+    padding: 0 !important;
+    margin: auto;
+    width: 1rem;
+}
+
+table{
+    width: 80%;
+    top:0;
+}
+
+::ng-deep .tab figure{
+    align-items: flex-start !important;
+}
+
+::ng-deep thead tr{
+    height: 1rem !important;
 }

@@ -385,7 +385,7 @@ exports.AppRoutingModule = AppRoutingModule;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<app-navbar></app-navbar>\n\n<main class=\"container\">\n    <router-outlet></router-outlet>\n</main>"
+module.exports = "<app-navbar></app-navbar>\n\n<main class=\"container\">\n    <router-outlet></router-outlet>\n</main>\n\n<app-connection></app-connection>"
 
 /***/ }),
 
@@ -462,6 +462,7 @@ var interceptor_service_1 = __webpack_require__(/*! ./interceptor.service */ "./
 var group_create_component_1 = __webpack_require__(/*! ./group/group-create/group-create.component */ "./src/app/group/group-create/group-create.component.ts");
 var group_remove_component_1 = __webpack_require__(/*! ./group/group-remove/group-remove.component */ "./src/app/group/group-remove/group-remove.component.ts");
 var person_search_component_1 = __webpack_require__(/*! ./person/person-search/person-search.component */ "./src/app/person/person-search/person-search.component.ts");
+var connection_component_1 = __webpack_require__(/*! ./connection/connection.component */ "./src/app/connection/connection.component.ts");
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -479,7 +480,8 @@ var AppModule = /** @class */ (function () {
                 group_info_component_1.GroupInfoComponent,
                 group_create_component_1.GroupCreateComponent,
                 group_remove_component_1.GroupRemoveComponent,
-                person_search_component_1.PersonSearchComponent
+                person_search_component_1.PersonSearchComponent,
+                connection_component_1.ConnectionComponent
             ],
             imports: [
                 platform_browser_1.BrowserModule,
@@ -534,6 +536,94 @@ var AuthGuard = /** @class */ (function () {
     return AuthGuard;
 }());
 exports.AuthGuard = AuthGuard;
+
+
+/***/ }),
+
+/***/ "./src/app/connection/connection.component.html":
+/*!******************************************************!*\
+  !*** ./src/app/connection/connection.component.html ***!
+  \******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<footer class=\"alert alert-danger p-0 m-0 w-100\" *ngIf=\"!ConnectionService.connected\">Connection to remote server was lost</footer>"
+
+/***/ }),
+
+/***/ "./src/app/connection/connection.component.scss":
+/*!******************************************************!*\
+  !*** ./src/app/connection/connection.component.scss ***!
+  \******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "footer {\n  bottom: 0;\n  position: fixed;\n  border-radius: 0;\n  text-align: center; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29ubmVjdGlvbi9DOlxcVXNlcnNcXHZsYWRpbWlyXFxzb3VyY2VcXHJlcG9zXFxDcmV3aW5nQW5ndWxhci9zcmNcXGFwcFxcY29ubmVjdGlvblxcY29ubmVjdGlvbi5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLFNBQVE7RUFDUixlQUFlO0VBQ2YsZ0JBQWdCO0VBQ2hCLGtCQUFrQixFQUFBIiwiZmlsZSI6InNyYy9hcHAvY29ubmVjdGlvbi9jb25uZWN0aW9uLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiZm9vdGVye1xyXG4gICAgYm90dG9tOjA7XHJcbiAgICBwb3NpdGlvbjogZml4ZWQ7XHJcbiAgICBib3JkZXItcmFkaXVzOiAwO1xyXG4gICAgdGV4dC1hbGlnbjogY2VudGVyO1xyXG59Il19 */"
+
+/***/ }),
+
+/***/ "./src/app/connection/connection.component.ts":
+/*!****************************************************!*\
+  !*** ./src/app/connection/connection.component.ts ***!
+  \****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var tslib_1 = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+var core_1 = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+var connection_service_1 = __webpack_require__(/*! ./connection.service */ "./src/app/connection/connection.service.ts");
+var ConnectionComponent = /** @class */ (function () {
+    function ConnectionComponent(ConnectionService) {
+        this.ConnectionService = ConnectionService;
+    }
+    ConnectionComponent.prototype.ngOnInit = function () {
+    };
+    ConnectionComponent = tslib_1.__decorate([
+        core_1.Component({
+            selector: 'app-connection',
+            template: __webpack_require__(/*! ./connection.component.html */ "./src/app/connection/connection.component.html"),
+            styles: [__webpack_require__(/*! ./connection.component.scss */ "./src/app/connection/connection.component.scss")]
+        }),
+        tslib_1.__metadata("design:paramtypes", [connection_service_1.ConnectionService])
+    ], ConnectionComponent);
+    return ConnectionComponent;
+}());
+exports.ConnectionComponent = ConnectionComponent;
+
+
+/***/ }),
+
+/***/ "./src/app/connection/connection.service.ts":
+/*!**************************************************!*\
+  !*** ./src/app/connection/connection.service.ts ***!
+  \**************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var tslib_1 = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+var core_1 = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+var ConnectionService = /** @class */ (function () {
+    function ConnectionService() {
+        this.connected = true;
+    }
+    ConnectionService.prototype.changeStatus = function (status) {
+        this.connected = status;
+    };
+    ConnectionService = tslib_1.__decorate([
+        core_1.Injectable({
+            providedIn: 'root'
+        }),
+        tslib_1.__metadata("design:paramtypes", [])
+    ], ConnectionService);
+    return ConnectionService;
+}());
+exports.ConnectionService = ConnectionService;
 
 
 /***/ }),
@@ -642,7 +732,7 @@ exports.GroupCreation = GroupCreation;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div *ngIf=\"group\" class=\"row justify-content-center\">\n    <div class=\"col-6\">\n        <div class=\"h4 my-2 text-center\">{{group.Name}} owners</div>\n        <table class=\"table table-hover text-center\">\n            <tr><td *ngFor=\"let p of owners; index as i;\" class=\"m-2 pointer\" routerLink=\"/person/info/{{p.Guid}}\">{{p.FirstName}} {{p.LastName}}</td></tr>\n        </table>\n    </div>\n    <div class=\"col-6\">\n        <div class=\"h4 my-2 text-center\">{{group.Name}} members</div>\n        <table class=\"table table-hover text-center\">\n            <tr><td *ngFor=\"let p of members; index as i;\" class=\"m-2 pointer\" routerLink=\"/person/info/{{p.Guid}}\">{{p.FirstName}} {{p.LastName}}</td></tr>\n        </table>\n    </div>\n</div>\n<div *ngIf=\"!group\">\n    This group was not found\n</div>\n<button class=\"btn btn-main float-right\">Add new</button>\n"
+module.exports = "<div *ngIf=\"group\" class=\"row justify-content-center\">\n    <div class=\"col-6\">\n        <div class=\"h4 my-2 text-center\">{{group.Name}}</div>\n        <table class=\"table table-hover text-center\">\n            <tr *ngFor=\"let p of members; index as i;\" class=\"pointer\" routerLink=\"/person/info/{{p.Guid}}\">\n                <td>{{p.FirstName}}</td>\n                <td>{{p.LastName}}</td>\n                <td>{{p.Role}}</td>\n            </tr>\n        </table>\n    </div>\n</div>\n<div *ngIf=\"!group && loaded\">This group was not found</div>\n<div *ngIf=\"!loaded\">Loading</div>\n<button class=\"btn btn-main float-right\">Add new</button>\n"
 
 /***/ }),
 
@@ -653,7 +743,7 @@ module.exports = "<div *ngIf=\"group\" class=\"row justify-content-center\">\n  
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2dyb3VwL2dyb3VwLWluZm8vZ3JvdXAtaW5mby5jb21wb25lbnQuc2NzcyJ9 */"
+module.exports = "tbody:empty::after {\n  content: \"This group has no members\"; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvZ3JvdXAvZ3JvdXAtaW5mby9DOlxcVXNlcnNcXHZsYWRpbWlyXFxzb3VyY2VcXHJlcG9zXFxDcmV3aW5nQW5ndWxhci9zcmNcXGFwcFxcZ3JvdXBcXGdyb3VwLWluZm9cXGdyb3VwLWluZm8uY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxvQ0FBb0MsRUFBQSIsImZpbGUiOiJzcmMvYXBwL2dyb3VwL2dyb3VwLWluZm8vZ3JvdXAtaW5mby5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbInRib2R5OmVtcHR5OjphZnRlcntcclxuICAgIGNvbnRlbnQ6IFwiVGhpcyBncm91cCBoYXMgbm8gbWVtYmVyc1wiO1xyXG59Il19 */"
 
 /***/ }),
 
@@ -680,6 +770,7 @@ var GroupInfoComponent = /** @class */ (function () {
         this.groupService = groupService;
         this.location = location;
         this.personService = personService;
+        this.loaded = false;
     }
     GroupInfoComponent.prototype.ngOnInit = function () {
         this.getGroup();
@@ -689,17 +780,16 @@ var GroupInfoComponent = /** @class */ (function () {
         var name = this.route.snapshot.paramMap.get('name');
         this.groupService.getGroup(name).subscribe(function (res) {
             _this.group = res;
-            _this.getOwners();
             _this.getMembers();
-        });
+            _this.loaded = true;
+        }, function (err) { return _this.loaded = true; });
     };
     GroupInfoComponent.prototype.getMembers = function () {
         var _this = this;
-        this.personService.getMembersList(this.group.Guid).subscribe(function (res) { return _this.members = res; });
-    };
-    GroupInfoComponent.prototype.getOwners = function () {
-        var _this = this;
-        this.personService.getOnwersList(this.group.Guid).subscribe(function (res) { return _this.owners = res; });
+        this.personService.getMembersList(this.group.Guid).subscribe(function (res) {
+            _this.members = res;
+            console.log(res);
+        });
     };
     GroupInfoComponent.prototype.goBack = function () {
         this.location.back();
@@ -809,7 +899,7 @@ exports.GroupRemoveComponent = GroupRemoveComponent;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div *ngIf=\"!groupList\">\n    <h6 class=\"alert alert-info text-center\">Group list is empty</h6>\n</div>\n\n<div class=\"row\">\n    <table class=\"table table-hover w-100 col-6\">\n        <tr *ngFor=\"let item of groupList; index as i;\" class=\"m-2\">\n            <td>\n                <a class=\"text-dark\" routerLink=\"/group/{{item.Name}}\">{{item.Name}}</a>\n            </td>\n            <td class=\"icon\"><a class=\"pointer\" (click)=\"showRemoving(item.Guid)\" *ngIf=\"roleService.isAdmin()\">❌</a></td>\n        </tr>\n        <tr *ngIf=\"roleService.isManagerOrH()\">\n            <td colspan=\"2\"><a class=\"bg-main\" (click)=\"showCreation()\">Add new</a></td>\n        </tr>\n    </table>\n    <div class=\"col-6\">\n        <app-group-remove *ngIf=\"showGroupDeleting && !showGroupCreation\"></app-group-remove>\n        <app-group-create *ngIf=\"showGroupCreation && !showGroupDeleting\"></app-group-create>\n    </div>\n</div>"
+module.exports = "<div *ngIf=\"groupList && groupList.length == 0\">\n    <h6 class=\"alert alert-info text-center my-2\">Group list is empty</h6>\n</div>\n\n<div class=\"row\">\n    <table class=\"table table-hover w-100 col-6\">\n        <tr *ngFor=\"let item of groupList; index as i;\" class=\"m-2\">\n            <td>\n                <a class=\"text-dark\" routerLink=\"/group/{{item.Name}}\">{{item.Name}}</a>\n            </td>\n            <td class=\"icon\"><a class=\"pointer\" (click)=\"showRemoving(item.Guid)\" *ngIf=\"roleService.isAdmin()\">❌</a></td>\n        </tr>\n        <tr *ngIf=\"roleService.isManagerOrH()\">\n            <td colspan=\"2\"><a class=\"bg-main\" (click)=\"showCreation()\">Add new</a></td>\n        </tr>\n    </table>\n    <div class=\"col-6\">\n        <app-group-remove *ngIf=\"showGroupDeleting && !showGroupCreation\"></app-group-remove>\n        <app-group-create *ngIf=\"showGroupCreation && !showGroupDeleting\"></app-group-create>\n    </div>\n</div>"
 
 /***/ }),
 
@@ -1061,21 +1151,32 @@ exports.HomeService = HomeService;
 Object.defineProperty(exports, "__esModule", { value: true });
 var tslib_1 = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 var core_1 = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+var http_1 = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
 var account_service_1 = __webpack_require__(/*! ./account/account.service */ "./src/app/account/account.service.ts");
+var rxjs_1 = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+var operators_1 = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+var connection_service_1 = __webpack_require__(/*! ./connection/connection.service */ "./src/app/connection/connection.service.ts");
 var InterceptorService = /** @class */ (function () {
-    function InterceptorService(injector) {
+    function InterceptorService(injector, connectionService) {
         this.injector = injector;
+        this.connectionService = connectionService;
     }
     InterceptorService.prototype.intercept = function (req, next) {
+        var _this = this;
         var accountService = this.injector.get(account_service_1.AccountService);
         var tokenReq = req.clone({ setHeaders: { Authorization: 'Bearer ' + accountService.getToken() } });
-        return next.handle(tokenReq);
+        return next.handle(tokenReq).pipe(operators_1.tap(function (event) { if (event instanceof http_1.HttpResponse) {
+            _this.connectionService.connected = true;
+        } }), operators_1.retryWhen(function (error) { return error.pipe(operators_1.delayWhen(function (val) { return rxjs_1.timer(2000); })); }), operators_1.timeout(5000), operators_1.catchError(function (error) {
+            _this.connectionService.connected = false;
+            return rxjs_1.of('');
+        }));
     };
     InterceptorService = tslib_1.__decorate([
         core_1.Injectable({
             providedIn: 'root'
         }),
-        tslib_1.__metadata("design:paramtypes", [core_1.Injector])
+        tslib_1.__metadata("design:paramtypes", [core_1.Injector, connection_service_1.ConnectionService])
     ], InterceptorService);
     return InterceptorService;
 }());
@@ -1341,10 +1442,6 @@ var PersonService = /** @class */ (function () {
         var url = serverurl_1.serverurl + "Group/Members/?groupGuid=" + guid;
         return this.http.get(url);
     };
-    PersonService.prototype.getOnwersList = function (guid) {
-        var url = serverurl_1.serverurl + "Group/Owners/?groupGuid=" + guid;
-        return this.http.get(url);
-    };
     PersonService.prototype.getPerson = function (guid) {
         var url = serverurl_1.serverurl + "Person/Info/?guid=" + guid;
         return this.http.get(url);
@@ -1426,7 +1523,7 @@ exports.RoleService = RoleService;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.serverurl = "https://crewingweb.azurewebsites.net/api/";
+exports.serverurl = "http://localhost:1785/api/";
 // remote https://crewingweb.azurewebsites.net/api/
 // local http://localhost:1785/api/
 

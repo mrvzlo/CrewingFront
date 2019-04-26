@@ -13,9 +13,9 @@ import { PersonInfo } from 'src/app/person/person.model';
 })
 export class GroupInfoComponent implements OnInit {
 
+  loaded = false;
   @Input() group: Group;
   members: PersonInfo[];
-  owners: PersonInfo[];
 
   constructor(private route: ActivatedRoute,
     private groupService: GroupService,
@@ -30,17 +30,16 @@ export class GroupInfoComponent implements OnInit {
     const name = this.route.snapshot.paramMap.get('name');
     this.groupService.getGroup(name).subscribe(res => {
       this.group = res;
-      this.getOwners();
       this.getMembers();
-    });
+      this.loaded = true;
+    }, err => this.loaded = true);
   }
 
   getMembers(){
-    this.personService.getMembersList(this.group.Guid).subscribe(res => this.members = res);
-  }
-
-  getOwners(){
-    this.personService.getOnwersList(this.group.Guid).subscribe(res => this.owners = res);
+    this.personService.getMembersList(this.group.Guid).subscribe(res => {
+      this.members = res
+      console.log(res)
+    });
   }
 
   goBack(): void {

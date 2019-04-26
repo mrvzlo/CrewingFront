@@ -2,6 +2,13 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { MatSelectModule } from '@angular/material/select';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatTableModule } from '@angular/material/table';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -21,28 +28,26 @@ import { GroupCreateComponent } from './group/group-create/group-create.componen
 import { GroupRemoveComponent } from './group/group-remove/group-remove.component';
 import { PersonSearchComponent } from './person/person-search/person-search.component';
 import { ConnectionComponent } from './connection/connection.component';
+import { MembershipListComponent } from './person/membership-list/membership-list.component';
+import { from } from 'rxjs';
 
 @NgModule({
   declarations: [
     AppComponent,
-    AccountComponent,
     NavbarComponent,
-    GroupComponent,
     HomeComponent,
-    PersonComponent,
-    SignInComponent,
-    SignUpComponent,
-    GroupInfoComponent,
-    GroupCreateComponent,
-    GroupRemoveComponent,
-    PersonSearchComponent,
+    GroupComponent, GroupInfoComponent, GroupCreateComponent, GroupRemoveComponent,
+    PersonComponent, PersonSearchComponent, MembershipListComponent,
+    AccountComponent, SignInComponent, SignUpComponent,
     ConnectionComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    MatSelectModule, MatGridListModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatTableModule,
+    BrowserAnimationsModule
   ],
   providers: [AccountService, GroupService, AuthGuard, 
     {provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi:true}],

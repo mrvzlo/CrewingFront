@@ -1,9 +1,16 @@
-  <h6 class="text-center my-2">New group</h6>  
-  <div class="row my-2 justify-content-center">
-      <div class="col-md-3 text-center">Name</div>
-      <div class="col-md-9"><input type="text" [(ngModel)]="model.Name" id="name" name="name" autocomplete="name"/></div>
-      <div class="error col-12">{{errors}}</div>
-      <input type="submit" class="col-md-2 btn btn-main my-2" (click)="create()" value="Add"/>
-      <div class="col-1"></div>
-      <button class="col-md-2 btn btn-secondary my-2" (click)="cancel()">Cancel</button>
-  </div>
+  <table>
+      <tr>
+          <td colspan="2" class="title">New group</td>
+      </tr>
+      <tr>
+          <td colspan="2">
+              <div class="col-md-9"><input type="text" [(ngModel)]="model.Name" id="name" name="name" autocomplete="name"/></div>
+              <div class="error col-12">{{errors}}</div>
+          </td>
+      </tr>
+      <tr>
+          <td class="text-center" style="width:50%"><button type="submit" class="col-md-2 btn btn-main my-2" (click)="create()">Add</button></td>
+          <td class="text-center" style="width:50%"><button class="btn-secondary" (click)="cancel()">Cancel</button></td>
+      </tr>
+  </table>
+  

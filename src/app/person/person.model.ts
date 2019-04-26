@@ -13,6 +13,7 @@ export class PersonInfo {
   Nationality: string;
   Password: string;
   PasswordConfirm: string;
+  Role: string;
   UpdatedAt: Date;
   Width: number;
 }

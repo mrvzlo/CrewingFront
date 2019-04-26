@@ -4,6 +4,7 @@ import { serverurl } from '../serverurl';
 import { Observable, of } from 'rxjs';
 import { PersonInfo } from './person.model';
 import { ShortPersonInfo } from './person-short.model';
+import { Membership } from './membership-list/membership.model';
 
 @Injectable({
   providedIn: 'root'
@@ -16,11 +17,6 @@ export class PersonService {
     const url = serverurl + "Group/Members/?groupGuid=" + guid;
     return this.http.get<PersonInfo[]>(url);
   }  
-  
-  getOnwersList(guid: string): Observable<PersonInfo[]>{
-    const url = serverurl + "Group/Owners/?groupGuid=" + guid;
-    return this.http.get<PersonInfo[]>(url);
-  }
 
   getPerson(guid: string): Observable<PersonInfo>{
     const url = serverurl + "Person/Info/?guid=" + guid;
@@ -35,7 +31,12 @@ export class PersonService {
   searchPeople(name: string): Observable<ShortPersonInfo[]>{
     name = name.trim();
     if (!name) return of([]);
-    const url = serverurl + "Person/GetNamesByStart?start="+name;
+    const url = serverurl + "Person/NamesByStart?start="+name;
     return this.http.get<ShortPersonInfo[]>(url);
+  }
+
+  getMemberships(guid: string): Observable<Membership[]>{
+    const url = serverurl + "Person/Memberships/?guid=" + guid;
+    return this.http.get<Membership[]>(url);
   }
 }

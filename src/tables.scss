@@ -1,0 +1,28 @@
+@import 'colors.scss';
+
+td, th{
+    padding: 0 !important;
+    border-top: 1px solid black;
+    border-bottom: 0 !important;
+}
+
+td a{
+    display: block;
+    color: black;
+    padding: 0.5rem;
+}
+
+tr:nth-child(odd){
+    background-color: lighten($main, 20%);
+}
+
+table{
+    margin: .5rem;
+    border-spacing: 0;
+}
+
+::ng-deep th{
+    font-size: 1rem !important;
+    color: black !important;
+    font-weight: bold !important;
+}

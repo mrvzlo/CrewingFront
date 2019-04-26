@@ -18,7 +18,7 @@ export class InterceptorService implements HttpInterceptor{
     return next.handle(tokenReq).pipe(
       tap(event => {if(event instanceof HttpResponse){this.connectionService.connected = true}}),
       retryWhen((error) => error.pipe(delayWhen(val => timer(2000)))),
-      timeout(2000),
+      timeout(5000),
       catchError( error => {
         this.connectionService.connected = false;
         return of('')

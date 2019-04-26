@@ -47,6 +47,10 @@ export class PersonComponent implements OnInit {
       }
     ); 
   }
+  
+  hideSuccess(){
+    this.success = false;
+  }
 
   goBack(): void {
     this.location.back();

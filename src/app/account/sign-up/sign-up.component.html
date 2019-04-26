@@ -1,25 +1,25 @@
-<h4 class="text-center mb-3">New user</h4>
-<div class="row my-2 justify-content-around">
-    <div class="error col-12">{{errors.Sum}}</div>
+<div class="text-center">
+    <h3>New user</h3>
+    <div class="error">{{errors.Sum}}</div>
+    <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input matInput type="text" [(ngModel)]="model.Email"/>
+        <mat-hint class="error">{{errors.Email}}</mat-hint>
+    </mat-form-field>
+    <br>
+    <mat-form-field appearance="outline">
+        <mat-label>Password</mat-label>
+        <input matInput type="password" [(ngModel)]="model.Password"/>
+        <mat-hint class="error">{{errors.Password}}</mat-hint>
+    </mat-form-field>
+    <br>
+    <mat-form-field appearance="outline">
+        <mat-label>Confirm</mat-label>
+        <input matInput type="password" [(ngModel)]="model.Confirm"/>
+        <mat-hint class="error">{{errors.Confirm}}</mat-hint>
+    </mat-form-field>
+    <br>
+    <button mat-button type="submit" class="btn" (click)="signUp()">Sign up</button>
+    <br>
 </div>
-<div class="row my-2 justify-content-around">
-    <div class="col-md-2 text-center">Email</div>
-    <div class="col-md-9"><input type="text" [(ngModel)]="model.Email"/></div>
-    <div class="error col-12">{{errors.Email}}</div>
-</div>
-<div class="row my-2 justify-content-around">
-    <div class="col-md-2 text-center">Password</div>
-    <div class="col-md-9"><input type="password" [(ngModel)]="model.Password"/></div>
-    <div class="error col-12">{{errors.Password}}</div>
-</div>
-<div class="row my-2 justify-content-around">
-    <div class="col-md-2 text-center">Confirm</div>
-    <div class="col-md-9"><input type="password" [(ngModel)]="model.Confirm"/></div>
-    <div class="error col-12">{{errors.Confirm}}</div>
-</div>
-<div class="row justify-content-center">
-    <input type="submit" class="col-md-2 col-4 btn btn-main py-2" (click)="signUp()"  value="Sign up"/>
-</div>
-<div class="row justify-content-end">
-    <a routerLink="../signin">Have an account?</a>
-</div>
+<a class="right" routerLink="../signin">Have an account?</a>

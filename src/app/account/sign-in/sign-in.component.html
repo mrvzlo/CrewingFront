@@ -1,25 +1,19 @@
-<app-account></app-account>
-
-<div id="_SignIn" class="tab-pane active" role="tabpanel">
-  <h4 class="text-center mb-3">Registered user</h4>
-  <div class="row my-2 justify-content-around">
-      <div class="error col-12">{{errors.Sum}}</div>
-  </div>
-
-  <div class="row my-2 justify-content-around">
-      <div class="col-md-2 text-center">Email</div>
-      <div class="col-md-9"><input type="text" [(ngModel)]="model.Email" id="email" name="email" autocomplete="email"/></div>
-      <div class="error col-12">{{errors.Email}}</div>
-  </div>
-  <div class="row my-2 justify-content-around">
-      <div class="col-md-2 text-center">Password</div>
-      <div class="col-md-9"><input type="password" [(ngModel)]="model.Password" id="password" name="password" autocomplete="password"/></div>
-      <div class="error col-12">{{errors.Password}}</div>
-  </div>
-  <div class="row justify-content-center">
-      <input type="submit" class="col-md-2 col-4 btn btn-main py-2" (click)="signIn()" value="Sign in"/>
-  </div>
-  <div class="row justify-content-end">
-      <a routerLink="../signup">Create an account</a>
-  </div>
+<div class="text-center">
+    <h3>Registered user</h3>
+    <div class="error">{{errors.Sum}}</div>
+    <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input matInput type="text" [(ngModel)]="model.Email"/>
+        <mat-hint class="error">{{errors.Email}}</mat-hint>
+    </mat-form-field>
+    <br>
+    <mat-form-field appearance="outline">
+        <mat-label>Password</mat-label>
+        <input matInput type="password" [(ngModel)]="model.Password"/>
+        <mat-hint class="error">{{errors.Password}}</mat-hint>
+    </mat-form-field>
+    <br>
+    <button mat-button class="btn" (click)="signIn()">Sign in</button>
+    <br>
 </div>
+<a class="right" routerLink="../signup">Create an account</a>
