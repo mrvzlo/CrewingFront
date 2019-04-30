@@ -38,7 +38,6 @@ export class GroupInfoComponent implements OnInit {
   getMembers(){
     this.personService.getMembersList(this.group.Guid).subscribe(res => {
       this.members = res
-      console.log(res)
     });
   }
 

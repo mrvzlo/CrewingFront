@@ -35,10 +35,10 @@ export class SignUpComponent implements OnInit {
           localStorage.setItem('token', res.token);
           this.router.navigate(["group"]);
         }else{
-          this.errors.Email = res.result.Errors.Email;
-          this.errors.Password = res.result.Errors.Password;
-          this.errors.Confirm = res.result.Errors.Confirm;
-          this.errors.Sum = res.result.Errors.Sum;
+          this.errors.Email = res.result.Email;
+          this.errors.Password = res.result.Password;
+          this.errors.Confirm = res.result.Confirm;
+          this.errors.Sum = res.result.Sum;
         }
       }
     ); 

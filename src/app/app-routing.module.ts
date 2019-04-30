@@ -16,10 +16,9 @@ const routes: Routes = [
   { path: 'group', component: GroupComponent, canActivate: [AuthGuard] },
   { path: 'person/info/:guid', component: PersonComponent, canActivate: [AuthGuard] },
   { path: 'person/search', component: PersonSearchComponent, canActivate: [AuthGuard] },
-  { path: 'home', component: HomeComponent },
   { path: 'account', redirectTo: '/account/signin', pathMatch: 'full' },
   { path: 'person', redirectTo: '/person/search', pathMatch: 'full' },
-  { path: '', redirectTo: '/home', pathMatch: 'full'},
+  { path: '', redirectTo: '/group', pathMatch: 'full'},
 ];
 
 @NgModule({

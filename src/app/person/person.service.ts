@@ -28,6 +28,11 @@ export class PersonService {
     return this.http.post<any>(url, person);
   }
 
+  postMembership(membership: Membership){
+    const url = serverurl + "Person/AddMembership";
+    return this.http.post<any>(url, membership);
+  }
+
   searchPeople(name: string): Observable<ShortPersonInfo[]>{
     name = name.trim();
     if (!name) return of([]);

@@ -16,9 +16,16 @@ export class InterceptorService implements HttpInterceptor{
     let accountService = this.injector.get(AccountService);
     let tokenReq = req.clone({setHeaders:{Authorization: 'Bearer ' + accountService.getToken()}});
     return next.handle(tokenReq).pipe(
-      tap(event => {if(event instanceof HttpResponse){this.connectionService.connected = true}}),
-      retryWhen((error) => error.pipe(delayWhen(val => timer(2000)))),
-      timeout(5000),
+      tap(event => {
+        if(event instanceof HttpResponse){this.connectionService.connected = true}
+      }),
+      retryWhen(error => {
+        this.connectionService.connected = false;
+        return error.pipe(
+          tap(event => {this.connectionService.connected = false}),
+          delayWhen(val => timer(2000))
+        );
+      }),
       catchError( error => {
         this.connectionService.connected = false;
         return of('')

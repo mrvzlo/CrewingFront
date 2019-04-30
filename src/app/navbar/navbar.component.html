@@ -1,15 +1,9 @@
-<mat-grid-list cols="5" rowHeight="2.5rem" class="navbar">
-    <mat-grid-tile>
-        <a routerLink="/home" routerLinkActive="active" class="nav-link">Home</a>
-    </mat-grid-tile>
+<mat-grid-list cols="3" rowHeight="2.5rem" class="navbar">
     <mat-grid-tile>
         <a routerLink="/group" routerLinkActive="active" class="nav-link">Groups</a>
     </mat-grid-tile>
     <mat-grid-tile>
         <a routerLink="/person" routerLinkActive="active" class="nav-link">People</a>
-    </mat-grid-tile>
-    <mat-grid-tile>
-        <a routerLink="/person/info/69feb338-2755-e911-80f4-0003ff53030d" routerLinkActive="active" class="nav-link">A</a>
     </mat-grid-tile>
   <mat-grid-tile>
     <a *ngIf="!accountService.loggedIn()" routerLink="/account" routerLinkActive="active" class="nav-link">Login</a>

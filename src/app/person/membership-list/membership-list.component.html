@@ -5,29 +5,35 @@
     <td mat-cell *matCellDef="let item"> {{item.GroupName}} </td>
     <td mat-footer-cell *matFooterCellDef> 
       <select [(ngModel)]="model.GroupName" required class="w-100 h-100 tableSelect">
-        <option *ngFor="let g of groups" value="g">{{g}}</option>
+        <option *ngFor="let g of groups" value="{{g}}">{{g}}</option>
       </select>
     </td>
   </ng-container>
     
   <ng-container matColumnDef="From">
       <th mat-header-cell *matHeaderCellDef>From</th>
-      <td mat-cell *matCellDef="let item">{{item.ActiveFrom}}</td>
+      <td mat-cell *matCellDef="let item">{{item.ActiveFrom | date:'longDate'}}</td>
       <td mat-footer-cell *matFooterCellDef><input [(ngModel)]="model.ActiveFrom" required/></td>
   </ng-container>
   <ng-container matColumnDef="Till">
       <th mat-header-cell *matHeaderCellDef>Till</th>
-      <td mat-cell *matCellDef="let item">{{item.ActiveTill}}</td>
+      <td mat-cell *matCellDef="let item">
+        {{item.ActiveTill | date:'longDate'}}
+        <span *ngIf="!item.ActiveTill">Not limited</span>
+      </td>
       <td mat-footer-cell *matFooterCellDef><input [(ngModel)]="model.ActiveTill" required/></td>
   </ng-container>
   <ng-container matColumnDef="Btn">
       <th mat-header-cell *matHeaderCellDef></th>
       <td class="icon" mat-cell *matCellDef="let item">❌</td>
-      <td class="icon" mat-footer-cell *matFooterCellDef>➕</td>
+      <td class="icon" mat-footer-cell *matFooterCellDef (click)="add()">➕</td>
   </ng-container>
   
   <tr mat-header-row *matHeaderRowDef="['Group', 'From', 'Till', 'Btn']"></tr>
   <tr mat-row *matRowDef="let row; columns: ['Group', 'From', 'Till', 'Btn'];"></tr>
   <tr mat-footer-row *matFooterRowDef="['Group', 'From', 'Till', 'Btn']"></tr>
 </table>
+<div class="error">
+  <div *ngFor="let error of errors">{{error}}</div>
+</div>
 <!--<div *ngIf="list && list.length==0" class="text-center">This person has no memberships</div>-->
